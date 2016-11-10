@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 #从数据库中取出数据
 conn = MySQLdb.connect(host='localhost', user='root', db='stock')
-symbol = "sz300033"
+symbol = "sh600123"
 df = pd.read_sql("select * from stockdaykline where symbol = '%s'" % symbol, con=conn, index_col=['date'], parse_dates=['date'])
 ts = df.close
 
