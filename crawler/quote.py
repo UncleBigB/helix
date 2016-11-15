@@ -41,7 +41,7 @@ def fetchDayKline():
         else:
             pass
 
-        url = url + "&start=" + today
+        # url = url + "&start=" + today
 
         print(url)
         resp = urllib.request.urlopen(url)
