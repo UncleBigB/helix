@@ -2,7 +2,7 @@ import demjson
 import urllib.request
 import re
 import MySQLdb
-import time
+import datetime
 
 def fetchStockList():
     resp = urllib.request.urlopen("http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=0&num=8000&sort=symbol&asc=1&node=hs_a")
@@ -27,7 +27,10 @@ def fetchStockList():
 
 
 def fetchDayKline():
-    today = time.strftime("%Y%m%d")
+    today = datetime.datetime.now()
+    start = today + datetime.timedelta(days=-10)
+    start = start.strftime("%Y%m%d")
+
     db = MySQLdb.connect(host="localhost", user="root", db="stock")
     cur = db.cursor()
     cur.execute("SELECT * FROM stocklists")
@@ -41,7 +44,7 @@ def fetchDayKline():
         else:
             pass
 
-        # url = url + "&start=" + today
+        url = url + "&start=" + start
 
         print(url)
         resp = urllib.request.urlopen(url)
